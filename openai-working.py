@@ -1,26 +1,31 @@
 from openai import OpenAI
+import os
+from dotenv import load_dotenv
 
+# Load environment variables from .env file
+load_dotenv('.env')
 
-MY_API_KEY = "enter API key here"
+# Access the environment variables
+openai_api_key = os.getenv("mushir_key")
 
-user_prompt = "What day is today?"
+user_prompt = "Is investing in farming the best way to boost economy?"
 
 client = OpenAI(
-    api_key=MY_API_KEY,
+    api_key=openai_api_key,
 )
 
 chat_completion = client.chat.completions.create(
     messages=[
         {
             "role": "system",
-            "content": "Be precise, don't respond or output more than 10 words.",
+            "content": "Be precise and complete, don't respond or output more than 30 words.",
         },
         {
             "role": "user",
             "content": user_prompt,
         }
     ],
-    model="gpt-3.5-turbo",
+    model="gpt-4o-mini",
     temperature=0
 )
 
